@@ -1,5 +1,5 @@
 const int ledPin = 7; 
-int period = 10000;    
+int period = 1000;    
 int duty = 0;         
 
 void setup() {
