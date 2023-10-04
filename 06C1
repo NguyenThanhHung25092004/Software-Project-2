@@ -1,0 +1,43 @@
+const int ledPin = 7; 
+int period = 10000;    
+int duty = 0;         
+
+void setup() {
+  pinMode(ledPin, OUTPUT);
+  Serial.begin(9600); 
+}
+
+void loop() {
+  set_period(period);
+  set_duty(duty);
+
+  for (int brightness = 0; brightness <= 100; brightness++) {
+    analogWrite(ledPin, map(brightness, 0, 100, 0, 255));
+    delayMicroseconds(period / 100);
+  }
+  for (int brightness = 100; brightness >= 0; brightness--) {
+    analogWrite(ledPin, map(brightness, 0, 100, 0, 255));
+    delayMicroseconds(period / 100);
+  }
+
+}
+void set_period(int new_period) {
+  if (new_period >= 100 && new_period <= 10000) {
+    period = new_period;
+    Serial.print("Period set to: ");
+    Serial.println(period);
+  } else {
+    Serial.println("Invalid period. Please set it between 100 and 10000.");
+  }
+
+}
+
+void set_duty(int new_duty) {
+  if (new_duty >= 0 && new_duty <= 100) {
+    duty = new_duty;
+    Serial.print("Duty cycle set to: ");
+    Serial.println(duty);
+  } else {
+    Serial.println("Invalid duty cycle. Please set it between 0 and 100.");
+  }
+}
